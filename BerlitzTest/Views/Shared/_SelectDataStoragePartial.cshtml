@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNetCore.Http
+
+@{
+    int? dataStorage = Context.Session.GetInt32(nameof(DataStorages));
+}
+
+<div class="row">
+    <div class="col-12">
+        <div>
+            <p>
+                Data Base
+                <label class="switch">
+                    <input onclick="UpdateDataStorage(this)" type="checkbox" @if(dataStorage == 1){
+                    <text>
+                        checked
+                    </text>
+                    } />
+                    <span class="slider round"></span>
+                </label>
+                In-Memory
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function UpdateDataStorage(checkbox){
+        var isChecked = checkbox.checked;
+        if(isChecked){
+            fetch("/api/DataStorages?dataStorage=1");
+        }
+        else{
+            fetch("/api/DataStorages?dataStorage=0");
+        }
+        location.href="/";
+        
+    }
+</script>
